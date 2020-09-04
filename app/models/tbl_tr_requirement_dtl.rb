@@ -1,0 +1,2 @@
+class TblTrRequirementDtl < ApplicationRecord
+end
