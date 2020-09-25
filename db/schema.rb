@@ -10,17 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_04_052359) do
+ActiveRecord::Schema.define(version: 2020_09_25_083153) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "edb_dblink_libpq"
+  enable_extension "edb_dblink_oci"
+  enable_extension "edbspl"
+  enable_extension "pldbgapi"
   enable_extension "plpgsql"
 
+  create_table "departments", force: :cascade do |t|
+    t.string "departmentname"
+    t.boolean "isactive"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "operators", force: :cascade do |t|
-    t.string "username", limit: 30
+    t.string "operator_emp_code", limit: 7
+    t.string "operator_emp_name", limit: 40
     t.string "Password", limit: 15
-    t.string "mobileno", limit: 12
-    t.string "emailID", limit: 50
-    t.string "usertype", limit: 10
+    t.string "email_ID", limit: 50
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -42,6 +52,67 @@ ActiveRecord::Schema.define(version: 2020_09_04_052359) do
     t.string "modified_username", limit: 30
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tbl_tr_requirement_trns", force: :cascade do |t|
+    t.string "tr_no", limit: 10
+    t.string "test_requirement_code"
+    t.string "test_requirement"
+    t.string "no_of_tyres"
+    t.string "Status"
+    t.string "created_username"
+    t.string "modified_username"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tbl_tr_sample_trns", force: :cascade do |t|
+    t.string "tr_no", limit: 10
+    t.string "Product_Type_code"
+    t.string "Product_Type"
+    t.string "Product_Category_code"
+    t.string "Product"
+    t.string "Category"
+    t.string "Tyre_Size"
+    t.string "sku_code", limit: 15
+    t.string "sku", limit: 15
+    t.string "pattern_code"
+    t.string "Pattern"
+    t.string "brand_code"
+    t.string "Brand_Name"
+    t.string "Test_Category_code"
+    t.string "Test_Category"
+    t.string "Customer_Name"
+    t.string "test_reason"
+    t.string "Rim_used"
+    t.string "Spec"
+    t.string "Dept_Categ_code"
+    t.string "Dept_Categ"
+    t.string "Requesting_Dept_code"
+    t.string "SFG_SAP_Reference"
+    t.string "no_of_tyres"
+    t.string "BOM_Version"
+    t.string "Mould_Correction"
+    t.string "Building_mcn_type_code"
+    t.string "Building_mcn_type"
+    t.string "Status"
+    t.string "created_username"
+    t.string "modified_username"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

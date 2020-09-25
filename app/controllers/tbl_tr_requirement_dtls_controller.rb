@@ -25,8 +25,8 @@ class TblTrRequirementDtlsController < ApplicationController
 
     def todayCount
         operatoremplcode = params[:operator_emp_code]
-        # @result = TblTrRequirementDtl.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).where(operator_emp_code: operatoremplcode)
-        @result = TblTrRequirementDtl
+        @result = TblTrRequirementDtl.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).where(operator_emp_code: operatoremplcode)
+        #@result = TblTrRequirementDtl
         noOfRecord = @result.count
         if @result.present?
             render json: {
